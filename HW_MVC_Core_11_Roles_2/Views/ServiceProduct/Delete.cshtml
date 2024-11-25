@@ -1,0 +1,44 @@
+﻿@model Shop_app.Models.Product
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <form asp-controller="ServiceProduct" asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Поле для відображення назви продукту -->
+        <div class="form-group">
+            <label asp-for="Name">Product Name:</label>
+            <input asp-for="Name" value="@Model.Name" readonly />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Поле для відображення ціни продукту -->
+        <div class="form-group">
+            <label asp-for="Price">Price:</label>
+            <input asp-for="Price" value="@Model.Price" readonly />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <!-- Поле для відображення опису продукту -->
+        <div class="form-group">
+            <label asp-for="Description">Description:</label>
+            <input asp-for="Description" value="@Model.Description" readonly />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <!-- Кнопка підтвердження видалення та повернення до списку -->
+        <div class="form-group">
+            <input type="submit" value="Delete" />
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
+

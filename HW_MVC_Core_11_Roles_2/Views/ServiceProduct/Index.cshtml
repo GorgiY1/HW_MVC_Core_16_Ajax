@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Shop_app.Models.Product>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<style>
+    .container {
+        width: 1400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Operationtion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Description</td>
+                <td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a href="@Url.Action("Details", new { id = product.Id })">Details</a>
+                        <a href="@Url.Action("Update", new { id = product.Id })">Update</a>
+                        <a href="@Url.Action("Delete", new { id = product.Id })">Delete</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", new { id = product.Id })">Details</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

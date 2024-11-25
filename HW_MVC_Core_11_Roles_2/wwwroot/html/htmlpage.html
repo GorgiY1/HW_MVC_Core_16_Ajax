@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="../css/Style1.css">
+</head>
+<body>
+    <div class="form-container">
+        <div class="container">
+            <h2>Available Products</h2>
+            <ul id="product-list">
+                <!-- Список продуктів завантажується динамічно -->
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>Shopping Cart</h2>
+            <ul id="cart-items">
+                <!-- Продукти, додані в корзину, з'являються тут -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Завантаження продуктів із контролера
+        document.addEventListener("DOMContentLoaded", function ()
+        {
+            fetch('http://localhost:5106/api/APIServiceProduct/Read')
+                .then(response =>
+                {
+                    if (response.ok)
+                    {
+                        return response.json();
+                    } else
+                    {
+                        throw new Error('Failed to load products');
+                    }
+                })
+                .then(products =>
+                {
+                    const productList = document.getElementById("product-list");
+                    productList.innerHTML = ""; // Очищення списку
+
+                    products.forEach(product =>
+                    {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `${product.name} - $${product.price}`;
+                        listItem.dataset.id = product.id;
+
+                        // Кнопка для додавання в корзину
+                        const addButton = document.createElement("button");
+                        addButton.textContent = "Add to Cart";
+                        addButton.addEventListener("click", function ()
+                        {
+                            addToCart(product.id, 1); // Додати 1 одиницю
+                        });
+
+                        listItem.appendChild(addButton);
+                        productList.appendChild(listItem);
+                    });
+                })
+                .catch(error =>
+                {
+                    console.error('Error:', error);
+                    alert("Failed to load products.");
+                });
+        });
+
+        // Додавання продукту в корзину
+        function addToCart(productId, quantity)
+        {
+            const cartItems = document.getElementById("cart-items");
+
+            // Імітуємо додавання в корзину
+            const listItem = document.createElement("li");
+            listItem.textContent = `Product ID: ${productId}, Quantity: ${quantity}`;
+            cartItems.appendChild(listItem);
+
+            alert("Product added to cart!");
+        }
+    </script>
+
+</body>
+</html>

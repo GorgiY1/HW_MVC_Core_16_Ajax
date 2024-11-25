@@ -1,0 +1,38 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Shop_app.Models.Product
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div>
+    <div>
+        <form asp-controller="Products" asp-action="Create" method="post">
+
+            <div class="form-group">
+                <label asp-for="Name">Name:</label>
+                <input asp-for="Name" name="Name" type="text" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price">Price:</label>
+                <input asp-for="Price" name="Price" type="text" step="0.01" />
+                <span asp-validation-for="Price"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Description:</label>
+                <input asp-for="Description" name="Description" type="text" />
+                <span asp-validation-for="Description"></span>
+            </div>
+
+            <input type="submit" value="Create" />
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+</div>

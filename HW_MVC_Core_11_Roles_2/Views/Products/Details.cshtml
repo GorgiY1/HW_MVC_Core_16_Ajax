@@ -1,0 +1,61 @@
+﻿@model Shop_app.Models.Product
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+<hr />
+<style>
+    input[type="text"], input[type="password"], input[type="email"], textarea {
+        margin: 0px;
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center flex-column w-100">
+    <table>
+        <tr>
+            <th>
+                <label asp-for="Id"></label> <!-- Заголовок для поля Id -->
+            </th>
+            <td>
+                <input asp-for="Id" readonly /> <!-- Відображення значення поля Id -->
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label asp-for="Name"></label> <!-- Заголовок для поля Name -->
+            </th>
+            <td>
+                <input asp-for="Name" readonly /> <!-- Відображення значення поля Name -->
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label asp-for="Price"></label> <!-- Заголовок для поля Price -->
+            </th>
+            <td>
+                <input asp-for="Price" readonly /> <!-- Відображення значення поля Price -->
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label asp-for="Description"></label> <!-- Заголовок для поля Description -->
+            </th>
+            <td>
+                <input asp-for="Description" readonly /> <!-- Відображення значення поля Description -->
+            </td>
+        </tr>
+    </table>
+    <div class="btn-container">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Update" asp-route-id="@Model.Id">Update</a> <!-- Використання ActionLink замінено на asp-route -->
+        }
+
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

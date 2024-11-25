@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.Identity
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Shop_app</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Shop_app.styles.css" asp-append-version="true" />
+    
+    <link href="~/css/Style1.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="form-container">
+
+        <header>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <span>Hello, @User.Identity.Name</span>
+                //@Html.AntiForgeryToken()
+                <form asp-action="Logout" asp-controller="User" method="post">
+                    <button type="submit">LogOut</button>
+                </form>
+
+                <div class="menu">
+                    <a href="/">Home</a>
+                    <a asp-controller="User" asp-action="Create">Create New</a>
+                    <a asp-controller="User" asp-action="LogIn">LogIn</a>
+                    <a asp-controller="User" asp-action="CreateRole">Create Role</a>
+                    <a asp-controller="User" asp-action="AssignRole">Manage of Roles</a>
+                </div>
+            }
+            else
+            {
+                <div class="menu">
+                    <a href="/">Home</a>
+                    <a asp-controller="User" asp-action="Create">Create New</a>
+                    <a asp-controller="User" asp-action="LogIn">LogIn</a>
+                </div>
+            }
+            @if (User.IsInRole("admin"))
+            {
+                <div class="menu">
+                    <h1>Products</h1>
+                    <a class="menu" asp-controller="Products" asp-action="Index">Read</a>
+
+                    <a class="menu" asp-controller="Products" asp-action="Create">Create</a>
+
+                    @*<a class="menu" asp-controller="ServiceProduct" asp-
+                        action="Details">Details</a>*@
+                    @*<a class="menu" asp-controller="ServiceProduct" asp-action="Update">Update</a>
+
+                        <a class="menu"asp-controller="ServiceProduct" asp-action="Delete">Delete</a>*@
+                    @*<h1>Products</h1>
+                        <a class="menu" asp-controller="Products" asp-action="Index">Read</a>
+
+                        <a class="menu" asp-controller="Products" asp-action="Create">Create</a>
+
+                        <a class="menu" asp-controller="Products" asp-action="Details">Details</a>
+                        <a class="menu" asp-controller="Products" asp-action="Update">Update</a>
+
+                        <a class="menu" asp-controller="Products" asp-action="Delete">Delete</a>*@
+                </div>
+            }
+            else
+            {<div class="menu">
+                    <h1>Products</h1>
+                    <a class="menu" asp-controller="Products" asp-action="Index">Read</a>
+
+                    <a class="menu" asp-controller="Products" asp-action="Details">Details</a>
+
+                </div>
+            }
+
+
+        </header>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer>
+            <div>
+                &copy; 2024 - Identity
+            </div>
+        </footer>
+    </div>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>*@
+    @*<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>*@
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
